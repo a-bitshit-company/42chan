@@ -1,21 +1,27 @@
-DROP DATABASE IF EXIST db;
+DROP DATABASE IF EXISTS db;
 CREATE DATABASE db;
-USE db
+USE db;
 
 CREATE TABLE Boards
 (
+	short VARCHAR(4) PRIMARY KEY,
 	title VARCHAR(128) NOT NULL,
-	short VARCHAR(4) NOT NULL,
 	subtitle VARCHAR(128)
 );
 
 CREATE TABLE Posts
 (
-	id INT PRIMARY KEY AUTO_INCREMENT,
 	board VARCHAR(128) NOT NULL,
-	op BOOLEAN NOT NULL,
-	nickname VARCHAR(32);
+	OPid INT,
+	FOREIGN KEY (board) REFERENCES Boards(short),
+	FOREIGN KEY (OPid) REFERENCES Posts(id),
+	content VARCHAR(2048) NOT NULL,
 	title VARCHAR(128),
-	content VARCHAR(2048) NOT NULL;
 	image LONGBLOB,
+	nickname VARCHAR(32),
+	id INT PRIMARY KEY AUTO_INCREMENT
 );
+
+INSERT INTO Boards VALUES("g", "technology", "be dumb, act smart");
+INSERT INTO Posts VALUES("g", NULL, "this is le test post on 42chan/g/", "test", NULL, "anon", NULL);
+INSERT INTO Posts VALUES("g", 1, "this is test rebly :DDD", NULL, NULL, NULL, NULL);
