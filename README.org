@@ -1,0 +1,13 @@
+* 42Chan
+very original, don't steal™
+
+** Dependencies:
++ MariaDB
++ idk yet, some server probably
+
+** TODO:
++ insert content into DB via POST-Request
++ generate HTML from DB
++ generate JSON from DB
++ send HTML on GET-Request
++ send JSON on GET-Request
