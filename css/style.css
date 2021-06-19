@@ -1,0 +1,35 @@
+html{
+	color: white;
+	background-color: black;
+	overflow-y: hidden;
+}
+
+a{
+	color: cyan;
+}
+
+a:visited{
+	color: blue;
+}
+
+h1{
+	text-align: center;
+}
+
+p{
+	padding-left: 1em;
+}
+
+.boards{
+	text-align: center;
+	padding-bottom: 0.5em;
+}
+
+.boards a{
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+}
+
+form {
+	text-align: center;
+}
