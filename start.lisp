@@ -7,7 +7,6 @@
 (net.aserve:start)
 (cl-mysql:connect)
 (cl-mysql:query "USE chan")
-
 (net.aserve:publish-file :path "/favicon.ico" :file "/root/favicon.ico")
 (net.aserve:publish-directory :prefix "/css" :destination "/root/42chan/css")
 
@@ -30,11 +29,21 @@
 (defun gen-board (req ent)
   (let ((post (net.aserve:request-query-value "post" req)) 
         (board (net.aserve:request-query-value "board" req))
-	(thread (net.aserve:request-query-value "thread" req)))
+	(thread (net.aserve:request-query-value "thread" req))
+        (board-info
+	  (caaar (cl-mysql:query (format nil "SELECT * FROM Boards WHERE short=\"~A\""
+					 (net.aserve:request-query-value "board" req))))))
 
   (net.aserve:with-http-response (req ent)
     (net.aserve:with-http-body (req ent)
+
       (gen-boardlist)
+      (net.html.generator:html
+	((:div class "board-info")
+	 (:b (:princ-safe (car board-info) " - " (cadr board-info)))
+	 (:br)
+	 (:princ-safe (caddr board-info))))
+
       (display-post-form board thread)
       (if (and post (not (equal post "")))
 	(new-post board thread post))
@@ -50,6 +59,8 @@
       ((:div class "post")
         (:hr)
 	((:a id (car p) href (format nil "view?board=~A&thread=~A" (cadr p) (car p))) (:princ-safe (car p)))
+	" on "
+	((:a href (format nil "view?board=~A" (cadr p) )) (:princ-safe (cadr p)))
 	(:p (:princ-safe (caddr p)))
 ) ) ) )
 	      
@@ -57,10 +68,16 @@
   (net.html.generator:html
   ((:link :rel "stylesheet" :href "css/style.css"))
   ((:div class "boards")
+    (:hr)
+    (:b "|")
     (loop for b in (caar (cl-mysql:query "SELECT * FROM Boards")) do
       (net.html.generator:html
+	" "
         ((:a href (format nil "view?board=~A" (car b))) (:princ-safe (car b)))
-) ) ) ) )
+	(:b " |")
+    ) )
+    (:hr)
+) ) )
 
 (defun display-post-form (board thread)
   (net.html.generator:html
@@ -113,5 +130,9 @@
 	      (:p (:small "the time is "
 			  (:princ-safe (get-universal-time))))
 	      (:h1 "42chan")
-	      (display-posts (caar (cl-mysql:query "SELECT id,board,content FROM Posts" )))
+	      (:hr)
+	      (:p "Welcome to 42chan, the Textboard to answer all your Questions")
+	      (:p "sauce is " ((:a href "https://github.com/a-bitshit-company/42chan") "here"))
+	      (:p "below are all the posts on here:")
+	      (display-posts (caar (cl-mysql:query "SELECT id,board,content FROM Posts ORDER BY id DESC" )))
 ) ) ) ) ) ) )
