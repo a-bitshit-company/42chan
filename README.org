@@ -1,13 +1,16 @@
 * 42Chan
 very original, don't steal™
 
+instance running on [[http://bitshit.company/][bitshit.company]]
+
 ** Dependencies:
 + MariaDB
-+ idk yet, some server probably
++ Common Lisp
+  + Quicklisp
+  + aserve
+  + cl-mysql
+  + cl-ppcre
 
 ** TODO:
-+ insert content into DB via POST-Request
-+ generate HTML from DB
 + generate JSON from DB
-+ send HTML on GET-Request
 + send JSON on GET-Request
