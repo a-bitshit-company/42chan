@@ -1,19 +1,30 @@
 html{
 	color: white;
 	background-color: black;
-	overflow-y: hidden;
 	font-size: 125%;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
+
+html::-webkit-scrollbar{
+	display: none;
+}
+
 
 a{
 	color: violet;
+	text-decoration:none;
+}
+
+a:hover {
+	text-decoration:underline;
 }
 
 h1{
 	text-align: center;
 }
 
-p{
+pre{
 	padding-left: 1em;
 }
 

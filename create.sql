@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS chan;
-CREATE DATABASE chan;
+CREATE DATABASE chan DEFAULT CHARSET = utf8mb4 DEFAULT COLLATE = utf8mb4_unicode_ci;;
 USE chan;
 
 CREATE TABLE Boards
@@ -16,12 +16,10 @@ CREATE TABLE Posts
 	FOREIGN KEY (board) REFERENCES Boards(short),
 	FOREIGN KEY (OPid) REFERENCES Posts(id),
 	content VARCHAR(2048) NOT NULL,
-	title VARCHAR(128),
-	image LONGBLOB,
 	nickname VARCHAR(32),
 	id INT PRIMARY KEY AUTO_INCREMENT
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 INSERT INTO Boards VALUES("g", "technology", "be dumb, act smart");
-INSERT INTO Posts VALUES("g", NULL, "this is le test post on 42chan/g/", "test", NULL, "anon", NULL);
-INSERT INTO Posts VALUES("g", 1, "this is test rebly :DDD", NULL, NULL, NULL, NULL);
+INSERT INTO Boards VALUES("t", "test", "this is a test board");
+INSERT INTO Posts VALUES("t", NULL, "this is a test post", "anon", NULL);
