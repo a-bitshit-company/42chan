@@ -10,6 +10,13 @@ html::-webkit-scrollbar{
 	display: none;
 }
 
+.loader:hover{
+	display:inline;
+}
+
+.loader{
+	display:none;
+}
 
 a{
 	color: violet;
@@ -26,6 +33,9 @@ h1{
 
 pre{
 	padding-left: 1em;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	font-family: serif;
 }
 
 .boards{

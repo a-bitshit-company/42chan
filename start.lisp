@@ -72,10 +72,10 @@
       	(if (and (cadr p) (not (equal (cadr p) "")))
     	  (net.html.generator:html
 	  " to "
-	  ((:a id (cadr p) href (format nil "view?board=~A&thread=~A" (cadddr p) (cadr p))) (:princ-safe (cadr p)))))
+	  ((:a href (format nil "/#~A" (cadr p))) (:princ-safe (cadr p)))))
 	" on "
 	((:a href (format nil "view?board=~A" (cadddr p) )) (:princ-safe (cadddr p)))
-	(:pre (:princ (car (cddddr p))))
+	(:pre (:princ (cl-ppcre:regex-replace-all "<script>" (car (cddddr p)) "<sgribd :D ") ))
 ) ) ) )
 	      
 (defun gen-boardlist ()
